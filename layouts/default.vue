@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="site">
     <div v-if="isloadingToken">
       Authenticating...
     </div>
@@ -40,5 +40,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+body {
+  display: block;
+  height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 </style>
