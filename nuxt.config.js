@@ -53,7 +53,6 @@ export default {
    */
   axios: {
     // See https://axios.nuxtjs.org/options
-    baseURL: 'https://www.reddit.com/',
     retry: false,
     debug: false
   },

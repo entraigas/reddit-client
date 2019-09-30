@@ -1,8 +1,12 @@
 <template>
   <div>
-    isloadingToken = {{ isloadingToken }} isinitToken =
-    {{ isinitToken }} accessToken = {{ accessToken }}
-    <nuxt />
+    <div v-if="isloadingToken">
+      Authenticating...
+    </div>
+    <nuxt v-if="isinitToken" />
+    <div v-if="!isloadingToken && !isinitToken">
+      Ops... somethings went terribly wrong!
+    </div>
   </div>
 </template>
 
@@ -17,9 +21,10 @@ export default {
       accessToken: 'settings/accessToken'
     })
   },
-  mounted() {
+  async mounted() {
     if (!this.isinitToken && !this.isloadingToken) {
-      this.$store.dispatch('settings/initToken')
+      await this.$store.dispatch('settings/initToken')
+      await this.$store.dispatch('news/getTopNews')
     }
   }
 }

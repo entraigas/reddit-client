@@ -1,15 +1,19 @@
 <template>
-  <div class="container">
-    pasooo
-  </div>
+  <ul>
+    <li v-for="item in news" :key="item.data.id">
+      {{ item.data.title }}
+    </li>
+  </ul>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      response: null
-    }
+  computed: {
+    ...mapGetters({
+      news: 'news/news'
+    })
   }
 }
 </script>

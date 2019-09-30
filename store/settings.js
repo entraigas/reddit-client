@@ -21,7 +21,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async initToken({ commit, dispatch, getters }, id) {
+  async initToken({ commit, dispatch, getters }) {
     if (getters.isloadingToken) {
       return
     }
