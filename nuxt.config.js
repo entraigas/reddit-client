@@ -28,7 +28,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/service-registrator'],
   /*
    ** Nuxt.js dev-modules
    */

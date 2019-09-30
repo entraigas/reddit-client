@@ -20,10 +20,14 @@ Web app & scripts you must provide a user token (because you are making a reques
 Installed app can make unauthorized (aka user-less) requests, like fetching top news.
 
 So lets choose `script` and continue with `redirecction url`. In my case I just put `http://localhost:3000/`
+After you submit the form, you'll see a new item on develop apps list. Now copy the 14 characters client id and put it inside a `.env` file
 
 ## Initial Setup
 
 ``` bash
+# create a .env file with the client_id code
+$ echo "client_id=xxxxxxxx" > .env
+
 # install dependencies
 $ yarn install
 
