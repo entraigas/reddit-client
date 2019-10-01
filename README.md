@@ -41,3 +41,7 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+
+## Final thoughts
+
+Due to the user-less connection method, it's impossible to check if the post is read/unread and to mark the post as read (dismiss).
