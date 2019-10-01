@@ -1,27 +1,25 @@
 <template>
-  <div class="menu">
-    <ol class="list">
-      <li
-        v-for="item in news"
-        :key="item.data.id"
-        :class="{ removed: removed.includes(item.data.id) }"
-        @click="onSelect(item)"
-      >
-        <div>
-          <span class="item-author">{{ item.data.author }}</span>
-          {{ getTimeDiff(item.data.created_utc) }}
-        </div>
-        <img :src="item.data.thumbnail" />
-        <div class="item-text">
-          {{ item.data.title }}
-        </div>
-        <div class="item-footer">
-          <span @click="removeItem(item.data.id)">Dismiss post</span>
-          <div class="item-comment">{{ item.data.num_comments }} comments</div>
-        </div>
-      </li>
-    </ol>
-  </div>
+  <ol class="list">
+    <li
+      v-for="item in news"
+      :key="item.data.id"
+      :class="{ removed: removed.includes(item.data.id) }"
+      @click="onSelect(item)"
+    >
+      <div>
+        <span class="item-author">{{ item.data.author }}</span>
+        {{ getTimeDiff(item.data.created_utc) }}
+      </div>
+      <img :src="item.data.thumbnail" />
+      <div class="item-text">
+        {{ item.data.title }}
+      </div>
+      <div class="item-footer">
+        <span @click="removeItem(item.data.id)">Dismiss post</span>
+        <div class="item-comment">{{ item.data.num_comments }} comments</div>
+      </div>
+    </li>
+  </ol>
 </template>
 
 <script>
@@ -73,17 +71,6 @@ export default {
 </script>
 
 <style>
-.menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  max-width: 35%;
-  max-height: 100%;
-  height: 100%;
-  overflow-y: scroll !important;
-  background-color: black;
-  color: white;
-}
 .menu .list {
   margin: 0;
   padding: 0;
