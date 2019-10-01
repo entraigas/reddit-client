@@ -41,6 +41,8 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+## Deploy environment
+Additionally you can play this app on [https://salty-dawn-24061.herokuapp.com](https://salty-dawn-24061.herokuapp.com)
 
 ## Final thoughts
 
