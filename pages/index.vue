@@ -2,17 +2,23 @@
   <div>
     <div class="menu">
       <ol class="list">
-        <li v-for="item in news" :key="item.data.id">
+        <li
+          v-for="item in news"
+          :key="item.data.id"
+          :class="{ removed: removed.includes(item.data.id) }"
+        >
           <div>
-            <span class="item-title">{{ item.data.author }}</span>
+            <span class="item-author">{{ item.data.author }}</span>
             {{ getTimeDiff(item.data.created_utc) }}
           </div>
           <img :src="item.data.thumbnail" />
-          {{ item.data.title }}
-          <div>
-            <span class="item-dismiss">Dismiss post</span>
+          <div class="item-text">
+            {{ item.data.title }}
+          </div>
+          <div class="item-footer">
+            <span @click="removeItem(item.data.id)">Dismiss post</span>
             <div class="item-comment">
-              comments {{ item.data.num_comments }}
+              {{ item.data.num_comments }} comments
             </div>
           </div>
         </li>
@@ -23,13 +29,15 @@
 </template>
 
 <script>
+import { debounce } from 'lodash'
 import { mapGetters } from 'vuex'
 
 export default {
   data() {
     const now = Math.round(new Date().getTime() / 1000)
     return {
-      now
+      now,
+      removed: []
     }
   },
   computed: {
@@ -49,12 +57,25 @@ export default {
       }
       const days = Math.ceil(hours / 24)
       return days === 1 ? 'a day ago' : `${days} days ago`
-    }
+    },
+    removeItem(id) {
+      this.removed.push(id)
+      this.debouncedRemove(id)
+    },
+    debouncedRemove: debounce(function(id) {
+      this.$store.commit('news/removeItemById', id)
+    }, 1000)
   }
 }
 </script>
 
 <style>
+.detail {
+  margin-left: 35%;
+  padding-left: 2em;
+  padding-top: 2em;
+  max-width: 65%;
+}
 .menu {
   position: fixed;
   top: 0;
@@ -63,36 +84,53 @@ export default {
   max-height: 100%;
   height: 100%;
   overflow-y: scroll !important;
-}
-.detail {
-  margin-left: 35%;
-  padding-left: 2em;
-  padding-top: 2em;
-  max-width: 65%;
+  background-color: black;
+  color: white;
 }
 .menu .list {
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
 }
 .menu li {
-  border: 1px solid red;
-  margin: 1em;
+  position: relative;
+  border-bottom: 1px solid #363537;
   padding: 0.5em;
+  height: 11em;
+  transition: transform 1s;
 }
-.menu img {
-  width: 25%;
-  height: 25%;
-  margin-right: 0.5em;
+.menu li.removed {
+  transform: translateX(-100%);
 }
-.menu .item-title {
+.menu .item-author {
   font-size: 1.3em;
   font-weight: 600;
+  padding-left: 0.5em;
 }
-.menu .item-dismiss {
+.menu .item-text {
+  height: 6em;
+  padding-left: 0.5em;
+  overflow-y: hidden;
+}
+.menu img {
+  width: 6em;
+  height: 6em;
+  min-width: 6em;
+  min-height: 6em;
+  float: left;
+}
+.menu .item-footer {
+  margin-top: 0.5em;
+  font-weight: 600;
+}
+.menu .item-footer span {
+  cursor: pointer;
 }
 .menu .item-comment {
   float: right;
   margin-right: 1em;
+  font-weight: 500;
+  color: #8b6847;
 }
 </style>

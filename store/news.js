@@ -14,6 +14,13 @@ export const mutations = {
   },
   setTop50(state, value) {
     Vue.set(state, 'top50', value)
+  },
+  removeItemById(state, id) {
+    const index = state.top50.findIndex((item) => item.data.id === id)
+    state.top50.splice(index, 1)
+  },
+  removeByIndex(state, index) {
+    state.top50.splice(index, 1)
   }
 }
 
